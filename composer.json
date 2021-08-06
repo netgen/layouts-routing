@@ -1,0 +1,10 @@
+{
+    "name": "netgen/layouts-routing",
+    "authors": [
+        {
+            "name": "Petar Španja",
+            "email": "petar@spanja.info"
+        }
+    ],
+    "require": {}
+}
