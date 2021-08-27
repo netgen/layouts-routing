@@ -1,0 +1,16 @@
+{% trans_default_domain 'routing_admin' %}
+
+<h4 class="leftmenu-hl">{{ 'title'|trans }}</h4>
+<div class="tags-sidebar">
+    <div class="sidebar-nav">
+        <ul class="leftmenu-items-list">
+            {% set pathInfo = app.request.pathInfo %}
+            {% set route = path( 'nglayouts_routing_admin_dashboard' ) %}
+            <li{% if pathInfo ends with route %} class="current"{% endif %}><a href="{{ route }}">{{ 'dashboard.title'|trans }}</a></li>
+            {% set route = path( 'nglayouts_routing_admin_content' ) %}
+            <li{% if route in pathInfo %} class="current"{% endif %}><a href="{{ route }}">{{ 'content.list.title'|trans }}</a></li>
+            {% set route = path( 'nglayouts_routing_admin_route' ) %}
+            <li{% if route in pathInfo %} class="current"{% endif %}><a href="{{ route }}">{{ 'route.list.title'|trans }}</a></li>
+        </ul>
+    </div>
+</div>

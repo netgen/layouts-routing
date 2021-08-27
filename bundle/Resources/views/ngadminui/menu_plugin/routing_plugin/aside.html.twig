@@ -1,0 +1,8 @@
+{% trans_default_domain 'routing_admin' %}
+
+<li{% if active %} class="active"{% endif %}>
+    <a href="{{ path( 'nglayouts_routing_admin' ) }}">
+        <i class="fa fa-flask"></i>
+        <span class="tt">{{ 'title'|trans }}</span>
+    </a>
+</li>

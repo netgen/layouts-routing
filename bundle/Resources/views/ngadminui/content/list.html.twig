@@ -1,0 +1,70 @@
+{# item \Netgen\Bundle\LayoutsRoutingBundle\Entity\Content #}
+{# translation \Netgen\Bundle\LayoutsRoutingBundle\Entity\ContentTranslation #}
+
+{% extends 'NetgenAdminUIBundle::pagelayout.html.twig' %}
+
+{% trans_default_domain 'routing_admin' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div id="path">
+            <div id="path-design">
+                <p class="path">
+                    <span class="path-here-text">{{ 'netgen_admin_ui.layout.path.you_are_here'|trans({}, 'messages') }}</span>
+                    <span class="path">{{ 'title'|trans }} / {{ 'content.list.title'|trans }}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="box-header">
+            <h1 class="context-title">{{ 'content.list.title'|trans }}</h1>
+        </div>
+
+        <div class="panel">
+            {{ block('list') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block list %}
+    {% if content_items is not empty %}
+        <table class="list">
+            <tbody>
+            <tr>
+                <th>{{ 'content.list.columns.id'|trans }}</th>
+                <th>{{ 'content.list.columns.name'|trans }}</th>
+                <th>{{ 'content.list.columns.translations'|trans }}</th>
+            </tr>
+            {% for item in content_items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>
+                        <a href="{{ path('nglayouts_routing_admin_content_view', { id: item.id }) }}">
+                            {% apply spaceless %}
+                                {% for translation in item.translations %}
+                                    {{ translation.name }}{% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            {% endapply %}
+                        </a>
+                    </td>
+                    <td>
+                        {% for translation in item.translations %}
+                            {{ translation.locale }}{% if not loop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if content_items.haveToPaginate %}
+            {{ pagerfanta(content_items, 'twitter_bootstrap3', {'prev_message': "common.pagination.previous"|trans, 'next_message': "common.pagination.next"|trans}) }}
+        {% endif %}
+    {% else %}
+        <p>{{ 'common.list.no_results'|trans }}</p>
+    {% endif %}
+{% endblock %}

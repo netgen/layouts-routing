@@ -1,0 +1,5 @@
+services:
+    nglayouts_routing.netgen_admin_ui.menu_plugin.routing_admin:
+        class: Netgen\Bundle\LayoutsRoutingBundle\MenuPlugin\RoutingAdmin
+        tags:
+            - {name: 'netgen_admin_ui.menu_plugin', priority: -10}

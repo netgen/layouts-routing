@@ -1,10 +1,22 @@
 {
     "name": "netgen/layouts-routing",
+    "description": "Netgen Layouts Routing",
+    "type": "symfony-bundle",
     "authors": [
         {
             "name": "Petar Španja",
             "email": "petar@spanja.info"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony-cmf/routing-bundle": "^2.3",
+        "symfony-cmf/routing-auto-orm-bundle": "1.0.x-dev",
+        "symfony-cmf/core-bundle": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Netgen\\Layouts\\Routing\\": "lib/",
+            "Netgen\\Bundle\\LayoutsRoutingBundle\\": "bundle/"
+        }
+    }
 }

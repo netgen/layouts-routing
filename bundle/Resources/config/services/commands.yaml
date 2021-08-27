@@ -1,0 +1,16 @@
+services:
+    nglayouts_routing.command.route_sync:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Command\RouteSyncCommand
+        arguments:
+            - '@nglayouts_routing.content_syncer'
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - {name: console.command, command: nglayouts_routing:sync}
+
+    nglayouts_routing.command.route_cleanup:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Command\RouteCleanupCommand
+        arguments:
+            - '@nglayouts_routing.content_syncer'
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - {name: console.command, command: nglayouts_routing:cleanup}

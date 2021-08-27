@@ -1,0 +1,11 @@
+services:
+    nglayouts_routing.content_builder:
+        alias: nglayouts_routing.content_builder.aggregate
+
+    nglayouts_routing.content_builder.aggregate:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Core\ContentBuilder\Aggregate
+
+    nglayouts_routing.content_builder.concrete_domain_content:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Core\ContentBuilder\ConcreteDomainContent
+        tags:
+            - {name: nglayouts_routing.content_builder}

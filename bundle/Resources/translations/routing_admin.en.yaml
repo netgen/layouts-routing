@@ -1,0 +1,39 @@
+title: Routing admin
+dashboard:
+    title: Dashboard
+content:
+    list:
+        title: Content
+        columns:
+            id: ID
+            name: Name
+            translations: Translations
+    view:
+        title: "Content #%id%"
+        labels:
+            id: ID
+translation:
+    list:
+        title: Translations
+        columns:
+            id: ID
+            name: Name
+            language: Language
+            path: Path
+route:
+    list:
+        title: Routes
+        columns:
+            id: ID
+            content: Content
+            name: Name
+            locale: Locale
+            path: Path
+    view:
+        title: Route
+common:
+    list:
+        no_results: No results
+    pagination:
+        previous: Previous
+        next: Next

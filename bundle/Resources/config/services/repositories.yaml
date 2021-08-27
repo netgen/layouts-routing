@@ -1,0 +1,10 @@
+services:
+    nglayouts_routing.repository.content:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Repository\ContentRepository
+        arguments:
+            - '@doctrine'
+
+    nglayouts_routing.repository.route:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Repository\RouteRepository
+        arguments:
+            - '@doctrine'

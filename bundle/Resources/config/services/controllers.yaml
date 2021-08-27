@@ -1,0 +1,41 @@
+services:
+    nglayouts_routing.controller.view:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Controller\ViewController
+        calls:
+            - [setContainer, ['@service_container']]
+
+    nglayouts_routing.controller.admin.dashboard:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Controller\Admin\DashboardController
+        arguments:
+            - '@cmf_routing.content_repository'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    nglayouts_routing.controller.admin.content.list:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Controller\Admin\Content\ListController
+        arguments:
+            - '@nglayouts_routing.repository.content'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    nglayouts_routing.controller.admin.content.view:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Controller\Admin\Content\ViewController
+        arguments:
+            - '@cmf_routing.content_repository'
+            - '@nglayouts_routing.repository.route'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    nglayouts_routing.controller.admin.route.list:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Controller\Admin\Route\ListController
+        arguments:
+            - '@nglayouts_routing.repository.route'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    nglayouts_routing.controller.admin.route.view:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Controller\Admin\Route\ViewController
+        arguments:
+            - '@cmf_routing.content_repository'
+        calls:
+            - [setContainer, ['@service_container']]

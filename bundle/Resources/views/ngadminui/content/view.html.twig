@@ -1,0 +1,78 @@
+{# content \Netgen\Bundle\LayoutsRoutingBundle\Entity\Content #}
+{# translation \Netgen\Bundle\LayoutsRoutingBundle\Entity\ContentTranslation #}
+{# route \Symfony\Cmf\Bundle\RoutingAutoOrmBundle\Doctrine\Orm\AutoRoute #}
+
+{% extends 'NetgenAdminUIBundle::pagelayout.html.twig' %}
+
+{% trans_default_domain 'routing_admin' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div id="path">
+            <div id="path-design">
+                <p class="path">
+                    <span class="path-here-text">{{ 'netgen_admin_ui.layout.path.you_are_here'|trans({}, 'messages') }}</span>
+                    <span class="path">{{ 'title'|trans }} / {{ 'content.view.title'|trans({ '%id%': content.id }) }}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="box-header">
+            <h1 class="context-title">{{ 'content.view.title'|trans({ '%id%': content.id }) }}</h1>
+        </div>
+
+        <div class="panel content-preview">
+            <div class="node-preview-content">
+                <div class="preview-row">
+                    <div class="label-preview">
+                        <label>{{ 'content.view.labels.id'|trans }}:</label>
+                    </div>
+                    <div class="attribute-preview">
+                        {{ content.id }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>{{ 'translation.list.title'|trans }}</h2>
+
+            {% set translations = content.translations %}
+
+            {% if translations is not empty %}
+                <table class="list">
+                    <tbody>
+                    <tr>
+                        <th>{{ 'translation.list.columns.id'|trans }}</th>
+                        <th>{{ 'translation.list.columns.name'|trans }}</th>
+                        <th>{{ 'translation.list.columns.language'|trans }}</th>
+                        <th>{{ 'translation.list.columns.path'|trans }}</th>
+                    </tr>
+                    {% for translation in translations %}
+                        <tr>
+                            <td>{{ translation.id }}</td>
+                            <td>{{ translation.name }}</td>
+                            <td>{{ translation.locale }}</td>
+                            <td>
+                                {% apply spaceless %}
+                                    {% for route in routes %}
+                                        {% if route.requirements['_locale'] == translation.locale %}
+                                            <a href="{{ path(route) }}">{{ route.path }}</a>{% if not loop.last %}<br>{% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endapply %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{{ 'common.list.no_results'|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

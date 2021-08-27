@@ -1,0 +1,18 @@
+#cmf_routing: # key
+chain:
+    # empty set as we rely on eZ Publish chain router here
+    routers_by_id: []
+    # eZ Publish takes care of replacing Symfony's router as well
+    replace_symfony_router: false
+dynamic:
+    enabled: true
+    url_generator: nglayouts_routing.cmf_routing.generator.siteaccess
+    route_filters_by_id:
+        nglayouts_routing.route_filter.siteaccess: 100
+    controllers_by_type:
+        # replaced by the route enhancer with view configured controller
+        cmf_routing_auto.primary: nglayouts_routing.view_configured_controller
+        cmf_routing_auto.redirect: cmf_routing_auto.redirect_controller:redirectAction
+    persistence:
+        orm:
+            enabled: true

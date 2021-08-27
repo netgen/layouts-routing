@@ -1,0 +1,6 @@
+{% extends nglayouts.layoutTemplate %}
+
+{%  block content %}
+    {% set content = app.request.attributes.get('contentDocument') %}
+    <a href="{{ path(content) }}">test</a>
+{%  endblock %}

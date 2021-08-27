@@ -1,0 +1,47 @@
+nglayouts_routing_admin:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: nglayouts_routing_admin_dashboard
+        permanent: false
+
+nglayouts_routing_admin_dashboard:
+    path: /dashboard
+    defaults:
+        _controller: nglayouts_routing.controller.admin.dashboard
+
+nglayouts_routing_admin_content:
+    path: /content
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: nglayouts_routing_admin_content_list
+        permanent: false
+
+nglayouts_routing_admin_content_list:
+    path: /content/list
+    defaults:
+        _controller: nglayouts_routing.controller.admin.content.list
+
+nglayouts_routing_admin_content_view:
+    path: /content/view/{id}
+    defaults:
+        _controller: nglayouts_routing.controller.admin.content.view
+    requirements:
+        id: \d+
+
+nglayouts_routing_admin_route:
+    path: /route
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: nglayouts_routing_admin_route_list
+        permanent: false
+
+nglayouts_routing_admin_route_list:
+    path: /route/list
+    defaults:
+        _controller: nglayouts_routing.controller.admin.route.list
+
+nglayouts_routing_admin_route_view:
+    path: /route/view/{id}
+    defaults:
+        _controller: nglayouts_routing.controller.admin.route.view

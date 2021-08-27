@@ -1,0 +1,28 @@
+{% extends 'NetgenAdminUIBundle::pagelayout.html.twig' %}
+
+{% trans_default_domain 'routing_admin' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div id="path">
+            <div id="path-design">
+                <p class="path">
+                    <span class="path-here-text">{{ 'netgen_admin_ui.layout.path.you_are_here'|trans({}, 'messages') }}</span>
+                    <span class="path">{{ 'title'|trans }} / {{ 'dashboard.title'|trans }}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="box-header">
+            <h1 class="context-title">{{ 'dashboard.title'|trans }}</h1>
+        </div>
+
+        <div class="panel">
+            <p>Dashboard</p>
+        </div>
+    </div>
+{% endblock %}

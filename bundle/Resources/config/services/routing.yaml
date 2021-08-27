@@ -1,0 +1,74 @@
+parameters:
+    nglayouts_routing.view_configured_controller_marker: nglayouts_routing.view_configured_controller
+
+services:
+    nglayouts_routing.content_enhancer:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\ContentEnhancer
+        arguments:
+            - '@nglayouts_routing.content_builder'
+        tags:
+            - {name: dynamic_router_route_enhancer}
+
+    nglayouts_routing.route_enhancer.controller:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\ControllerEnhancer
+        arguments:
+            - '%nglayouts_routing.view_configured_controller_marker%'
+        tags:
+            - {name: dynamic_router_route_enhancer}
+
+    nglayouts_routing.cmf_routing.generator.siteaccess:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\SiteAccess\UrlGenerator
+        decorates: cmf_routing.generator
+        arguments:
+            - '@nglayouts_routing.cmf_routing.generator.siteaccess.inner'
+        calls:
+            - [setSiteAccess, ['@?ezpublish.siteaccess']]
+
+    nglayouts_routing.domain_content_router:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\DomainContentRouter
+        public: false
+        arguments:
+            - '@cmf_routing.generator'
+        tags:
+            - {name: router, priority: 250}
+
+    nglayouts_routing.dynamic_router.siteaccess:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\SiteAccess\DynamicRouter
+        arguments:
+            - '@cmf_routing.dynamic_router'
+            - '@router.request_context'
+            - '@cmf_routing.nested_matcher'
+            - '@cmf_routing.generator' # originally set in the bundle extension, check
+            - '%cmf_routing.uri_filter_regexp%'
+            - '@event_dispatcher'
+            - '@cmf_routing.route_provider'
+        tags:
+            - {name: router, priority: 240}
+
+    # parameters are configured dynamically by CMF Routing
+    nglayouts_routing.orm_candidates:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\SiteAccess\Candidates
+        decorates: cmf_routing.orm_candidates
+        arguments:
+            - '%cmf_routing.dynamic.locales%'
+            - '%cmf_routing.dynamic.limit_candidates%'
+
+    nglayouts_routing.cmf_routing.final_matcher:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\SiteAccess\FinalMatcher
+        decorates: cmf_routing.final_matcher
+        arguments:
+            - '@cmf_routing.matcher.dummy_collection'
+            - '@cmf_routing.matcher.dummy_context'
+
+    nglayouts_routing.route_filter.siteaccess:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\SiteAccess\RouteFilter
+        arguments:
+            - '@ezpublish.locale.converter'
+            - '@ezpublish.config.resolver'
+
+    nglayouts.cmf_routing_auto.adapter.orm:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Routing\OrmAdapter
+        decorates: cmf_routing_auto.adapter.orm
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%cmf_routing_auto.auto_route_entity.class%'

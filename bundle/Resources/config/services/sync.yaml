@@ -1,0 +1,6 @@
+services:
+    nglayouts_routing.content_syncer:
+        class: Netgen\Bundle\LayoutsRoutingBundle\Core\ContentSyncer
+        arguments:
+            - '@nglayouts_routing.repository.content'
+            - '@doctrine.orm.entity_manager'
